@@ -37,4 +37,5 @@ dependencies = [
     "hikyuu>=2.8.0",
     "deepagents>=0.7.29",
     "tavily-python>=0.8.5",
+    "langchain-openai>=1.7.2",
 ]
