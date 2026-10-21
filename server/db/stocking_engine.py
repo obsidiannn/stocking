@@ -15,8 +15,8 @@ from server.config import (
 )
 
 url = (
-    f"mysql+pymysql://{STOCKING_DB_USER}:{STOCKING_DB_PASSWORD}"
-    f"@{STOCKING_DB_HOST}:{STOCKING_DB_PORT}/{STOCKING_DB_NAME}?charset=utf8mb4"
+    f"postgresql+psycopg2://{STOCKING_DB_USER}:{STOCKING_DB_PASSWORD}"
+    f"@{STOCKING_DB_HOST}:{STOCKING_DB_PORT}/{STOCKING_DB_NAME}"
 )
 
 engine = create_engine(

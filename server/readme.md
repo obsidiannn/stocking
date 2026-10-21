@@ -1,5 +1,5 @@
 
-* pip install fastapi uvicorn pymysql
+* pip install fastapi uvicorn psycopg2-binary
 
 ```shell
 # 本地执行
