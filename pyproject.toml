@@ -1,0 +1,38 @@
+[project]
+name = "stocking"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "backtrader>=1.9.78.123",
+    "bokeh>=3.10.1",
+    "click>=8.5.0",
+    "dingtalkchatbot>=1.5.7",
+    "fake-useragent>=2.2.0",
+    "fastapi>=0.143.2",
+    "flatbuffers>=24.3.25",
+    "gitpython>=3.2.1",
+    "h5py>=3.16.0",
+    "matplotlib>=3.5.0",
+    "mplfinance>=0.12.10b0",
+    "mysql-connector-python>=26.7.0",
+    "numpy>=2.0",
+    "pandas>=0.17.1",
+    "pipdeptree>=4.2.7",
+    "pyecharts>=2.1.0",
+    "pyjwt>=2.15.1",
+    "pymysql>=1.2.3",
+    "pynng>=0.9.0",
+    "pyperclip>=1.11.0",
+    "pytdx>=1.72",
+    "python-dotenv>=1.2.4",
+    "qdarkstyle>=3.2.3",
+    "requests>=2.34.2",
+    "sqlalchemy>=2.1.4",
+    "tables>=3.11.1",
+    "tdqm>=0.0.1",
+    "tushare>=1.4.29",
+    "uvicorn[standard]>=0.54.0",
+    "hikyuu>=2.8.0"
+]
