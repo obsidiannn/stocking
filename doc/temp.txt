@@ -1,2 +1,19 @@
 https://www.zdoc.app/zh/shiyu-coder/Kronos
 https://github.com/shiyu-coder/Kronos
+1. 打开 Claude Code，用 Sonnet 5.5，让它克隆 Kronos 仓库并装好环境，安装它全帮你搞定
+
+2. 切到 opus 5.5，给它指令从 Hugging Face 加载 Kronos-small，普通笔记本就能跑（我用的是 MAC M5 pro）
+
+3. 它会从币安免费的公共 API 拉取和你在 TradingView 上看到的同样的 K 线，任何币、任何周期，开盘、最高、最低、成交量全都有，不用注册账号
+
+4. 让 Opus 5.5 把最近 512 根 K 线喂给 Kronos，预测接下来 24 根，就跟让大模型续写一句话一样
+
+5. 把 sample_count 设成 100，Kronos 就会画出 100 种可能的未来，而不是只猜一个，这些路径之间的分散程度就反映了下一步的真实风险
+
+6. 让 Opus 从这些未来路径里判断市场状态，大多数路径指向同一方向就是趋势行情，路径四散两边都有就是震荡
+
+7. 让 Opus 把预测和市场状态转成明确的进场、出场、止损规则，再用一年历史数据回测，算上真实手续费和滑点
+
+8. 然后用 TradingView 免费的 Lightweight Charts 库，把 Kronos 预测的路径和真实 K 线画在一起，盯几天再决定信不信它
+
+9. 先模拟盘跑，再让 Opus 接个 Telegram 机器人，一旦出现高置信度的趋势机会，手机立刻收到提醒
