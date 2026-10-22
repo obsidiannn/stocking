@@ -15,6 +15,20 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base, relationship
 
+from typing import Any, Optional
+import decimal
+
+from sqlalchemy import (
+    DateTime,
+    BigInteger, Column, DECIMAL, Float, Index, Integer, String, Enum as SQLEnum,
+)
+from sqlalchemy.dialects.mysql import BIT, VARCHAR
+from sqlalchemy.ext.declarative import declarative_base
+
+from sqlalchemy import BigInteger, DECIMAL, DateTime, Float, Index, Integer, String
+from sqlalchemy.dialects.mysql import BIT, VARCHAR, ENUM
+from sqlalchemy.orm import Mapped, mapped_column
+
 Base = declarative_base()
 
 
@@ -96,4 +110,89 @@ class SysRolePermission(Base):
     role = relationship("SysRole", back_populates="role_permissions")
     perm = relationship("SysPermission", back_populates="role_permissions")
 
+
+
+class StrategyRecord(Base):
+    __tablename__ = 'strategy_record'
+    __table_args__ = (
+        Index('idx_strategy_record', 'strategy_date', 'strategy_code',
+              'stock_code', 'is_retest', 'data_index'),
+        Index('uni_strategy_record', 'data_index', unique=True),
+        {'comment': '策略记录表'}
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    strategy_date: Mapped[Optional[str]] = mapped_column(
+        String(32, 'utf8mb4_general_ci'))
+    strategy_code: Mapped[Optional[str]] = mapped_column(VARCHAR(32))
+    stock_code: Mapped[Optional[str]] = mapped_column(VARCHAR(32))
+    stock_name: Mapped[Optional[str]] = mapped_column(VARCHAR(32))
+    market_code: Mapped[Optional[str]] = mapped_column(VARCHAR(4))
+    industry_label: Mapped[Optional[str]] = mapped_column(
+        String(32, 'utf8mb4_general_ci'))
+    concept_label: Mapped[Optional[str]] = mapped_column(
+        String(1024, 'utf8mb4_general_ci'))
+    is_retest: Mapped[Optional[Any]] = mapped_column(BIT(1))
+    total_point: Mapped[Optional[int]] = mapped_column(Integer)
+    data_index: Mapped[Optional[str]] = mapped_column(
+        String(255, 'utf8mb4_general_ci'))
+    total_reason: Mapped[Optional[str]] = mapped_column(VARCHAR(1024))
+    capital_value: Mapped[Optional[decimal.Decimal]
+                          ] = mapped_column(DECIMAL(11, 2))
+    amount: Mapped[Optional[decimal.Decimal]
+                   ] = mapped_column(DECIMAL(11, 2))
+    ratio_val: Mapped[Optional[decimal.Decimal]
+                      ] = mapped_column(DECIMAL(11, 2))
+
+
+class StrategyRecordProperty(Base):
+    __tablename__ = 'strategy_record_property'
+    __table_args__ = (
+        Index('idx_strategy_record_property', 'data_index'),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    data_index: Mapped[str] = mapped_column(VARCHAR(255))
+    limit_date: Mapped[Optional[str]] = mapped_column(VARCHAR(32))
+    limit_start: Mapped[Optional[str]] = mapped_column(VARCHAR(32))
+    raise_1: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    raise_2: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    raise_3: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    raise_4: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    raise_5: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    max_raise_1: Mapped[Optional[decimal.Decimal]
+                        ] = mapped_column(DECIMAL(11, 2))
+    max_raise_2: Mapped[Optional[decimal.Decimal]
+                        ] = mapped_column(DECIMAL(11, 2))
+    max_raise_3: Mapped[Optional[decimal.Decimal]
+                        ] = mapped_column(DECIMAL(11, 2))
+    max_raise_4: Mapped[Optional[decimal.Decimal]
+                        ] = mapped_column(DECIMAL(11, 2))
+    max_raise_5: Mapped[Optional[decimal.Decimal]
+                        ] = mapped_column(DECIMAL(11, 2))
+    close_0: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    close_1: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    close_2: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    close_3: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    close_4: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    close_5: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    capital_value: Mapped[Optional[decimal.Decimal]
+                          ] = mapped_column(DECIMAL(11, 2))
+    range_a: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    range_b: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(11, 2))
+    suggest_price: Mapped[Optional[decimal.Decimal]
+                          ] = mapped_column(DECIMAL(11, 2))
+    ratio_val: Mapped[Optional[decimal.Decimal]
+                      ] = mapped_column(DECIMAL(11, 2))
+    amount: Mapped[Optional[decimal.Decimal]
+                   ] = mapped_column(DECIMAL(11, 2))
+
+
+
+class DailyIndicatorRecord(Base):
+    __tablename__ = 'daily_indicator_record'
+
+    date_time: Mapped[int] = mapped_column(Integer, primary_key=True)
+    indicator_type: Mapped[str] = mapped_column(VARCHAR(50), primary_key=True)
+    value: Mapped[Optional[decimal.Decimal]] = mapped_column(DECIMAL(15, 2))
 
