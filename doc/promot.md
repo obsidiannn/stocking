@@ -39,6 +39,7 @@
    视为工具异常，标记并排除）。
 
 # 指数清单
+
 - index_code: SH000300
   index_name: 沪深300
   category: broad | sector | style | theme
@@ -46,7 +47,6 @@
   quote_tool: [query_index_day, query_index_week]             # 查询指数行情的工具
   use_for: 判断大盘蓝筹整体趋势与风险偏好
 
-- 
 
 # 策略清单
 - strategy_type: sword

@@ -21,7 +21,7 @@ dependencies = [
     "pipdeptree>=4.2.7",
     "pyecharts>=2.1.0",
     "mysql-connector-python>=26.7.0",
-        "pymysql>=1.2.3",
+    "pymysql>=1.2.3",
     "pyjwt>=2.15.1",
     "pynng>=0.9.0",
     "pyperclip>=1.11.0",
@@ -38,4 +38,5 @@ dependencies = [
     "deepagents>=0.7.29",
     "tavily-python>=0.8.5",
     "langchain-openai>=1.7.2",
+    "sse-starlette>=3.5.0",
 ]
