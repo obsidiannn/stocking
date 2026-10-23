@@ -1,7 +1,10 @@
 # 文件路径：hello_agent.py
 
 import os
+from pathlib import Path
+
 from deepagents import create_deep_agent
+from deepagents.backends import FilesystemBackend
 from langchain_openai import ChatOpenAI
 from server.services import kline_service
 from server.schemas.requests import StockIndexItem
@@ -97,10 +100,17 @@ def query_index_week(market: str, code: str,  strategy_date: str):
     return list.filter(lambda k: int(k["date"]) < int(strategy_date))
 
 
+# 项目根目录下的 resource 作为 agent 的虚拟文件系统根目录 (deepagent.py -> core -> server -> 项目根)
+RESOURCE_DIR = Path(__file__).resolve().parents[2] / "resource"
+
+# 系统提示词取自项目根目录 doc/promot.md
+PROMPT_FILE = Path(__file__).resolve().parents[2] / "doc" / "promot.md"
+
 agent = create_deep_agent(
     model=model,
     tools=[query_kline_day, query_kline_week, query_index_day, query_index_week,get_stock_indices ],
-    # backend="./resource/agent/",
-    # memory="./resource/memory/",
-    system_prompt="",
+    backend=FilesystemBackend(root_dir=RESOURCE_DIR, virtual_mode=True),
+    # memory 是文件路径列表(AGENTS.md), 虚拟路径 /memory/AGENTS.md 即 resource/memory/AGENTS.md
+    memory=["/memory/AGENTS.md"],
+    system_prompt=PROMPT_FILE.read_text(encoding="utf-8"),
 )
