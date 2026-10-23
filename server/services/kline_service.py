@@ -60,8 +60,14 @@ def query_day_kline(market: str, stock: str, date: str, offset: int = 0):
            stock].get_kdata(Query(start=Datetime(start), end=Datetime(end)))
     return _convert_by_date(k)
 
-def query_week_kline():
-    pass
+def query_week_kline(market: str, stock: str, date: str,offset: int = 0):
+    start = plus_date_label(date, -720)
+    end = plus_date_label(date, offset)
+    k = sm[market +
+           stock].get_kdata(Query(start=Datetime(start), end=Datetime(end)),
+                                ktype=Query.WEEK
+                                )
+    return _convert_by_date(k)
 
 
 def query_min5_kline(market: str, stock: str, start_val: str, end_val: str, offset: int = 0):

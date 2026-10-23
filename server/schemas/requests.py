@@ -56,3 +56,9 @@ class SnapshotRecordsRequest(BaseModel):
 class UserRecordRequest(BaseModel):
     strategy: str = ""
     date: str = ""
+
+
+class StockIndexItem(BaseModel):
+    market_code: str = ""
+    index_code: str = ""
+    index_name: str = ""
